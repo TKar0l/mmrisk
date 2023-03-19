@@ -1,15 +1,37 @@
+import statistics
+import numpy as np
+import estimator
 
 
-for i in range (1,10_000):
-   s = np.random.normal(mu, sigma, 250)
-   mu_hat = statistics.mean(s)
-   sigma_hat = statistics.stdev(s)
-   _VaR_99 = var_emp(s)
-   tablica.append(_VaR_99)
+tablica = []
+mu = 1.0
+sigma = np.sqrt(10)
 
 
-print(f'Wartosc oczekiwana:{np.mean(tablica)} ,\nStandard dev: {statistics.stdev(tablica)}')
+def varSym(samplesize = 250, nruns = 10_000, alfa = 0.01, mu = 0.0, sigma = 1.0):
+    """This function makes nruns simulations to estimate Value at Risk"""
+    varTable = []
+    for i in range(1, nruns):
+        data = np.random.normal(mu, sigma, samplesize)
+        var = estimator.var_unorm(data, alfa)
+        varTable.append(var)
+    return {"meanVar" : statistics.mean(varTable),
+            "std_dev" : statistics.stdev(varTable),
+            "nruns"   : nruns,
+            "confLvl" : alfa}
 
+
+symulacja = varSym(mu = 1.0, sigma = np.sqrt(10))
+print(symulacja)
+
+#for i in range(1, 10_000):
+#    s = np.random.normal(mu, sigma, 250)
+#    mu_hat = statistics.mean(s)
+#    sigma_hat = statistics.stdev(s)
+#    _VaR_99 = estimator.var_emp(s)
+#    tablica.append(_VaR_99)
+
+#print(f'Wartosc oczekiwana:{np.mean(tablica)} ,\nStandard dev: {statistics.stdev(tablica)}')
 
 # tablica2 = []
 # for i in range (1,10_000):
