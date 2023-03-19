@@ -1,2 +1,2 @@
 # mmrisk
-## In this project I will store project developed during Modeling Market Risk course
+## In this repo I will store project developed during Modeling Market Risk course
